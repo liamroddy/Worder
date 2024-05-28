@@ -18,11 +18,11 @@ When you enter your guess the tiles will change colour to show how close you wer
 
 ### Examples:
 
-![second-letter-is-O-and-green]("README_resources/letter_in_correct_spot.png")
+![second-letter-is-O-and-green](README_resources/letter_in_correct_spot.png)
 
 O is in the word, and in the correct spot. B, A, R and D aren't in the word.
 
-![first-letter-is-A-and-orange]("README_resources/letter_in_incorrect_spot.png")
+![first-letter-is-A-and-orange](README_resources/letter_in_incorrect_spot.png)
 
 A is in the word, but it's not the first letter in the word. P, L and E aren't in the word.
 
