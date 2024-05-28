@@ -6,7 +6,7 @@ This project was built using just React, react-spring, and js-confetti (because 
 
 The dictionary for the game was sourced from https://www-cs-faculty.stanford.edu/~knuth/sgb-words.txt
 
-## How to play:
+## How to Play:
 
 You can play using your touchscreen device, or with a keyboard and mouse.
 
@@ -26,6 +26,6 @@ O is in the word, and in the correct spot. B, A, R and D aren't in the word.
 
 A is in the word, but it's not the first letter in the word. P, L and E aren't in the word.
 
-## The game in action:
+## The Game in Action:
 
-TODO - gifs
+https://github.com/liamroddy/Worder/assets/38569656/359993f2-f7cc-4803-a818-7a3e6da37e7b
