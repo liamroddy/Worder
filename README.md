@@ -18,14 +18,14 @@ When you enter your guess the tiles will change colour to show how close you wer
 
 ### Examples:
 
-TODO - screenshots
+![second-letter-is-O-and-green]("README_resources/letter_in_correct_spot.png")
 
-H is in the word, and in the correct spot.
+O is in the word, and in the correct spot. B, A, R and D aren't in the word.
 
-G is in the word, but not in that spot.
+![first-letter-is-A-and-orange]("README_resources/letter_in_incorrect_spot.png")
 
-F is not in the word at all.
+A is in the word, but it's not the first letter in the word. P, L and E aren't in the word.
 
-## The game in action
+## The game in action:
 
 TODO - gifs
