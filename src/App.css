@@ -1,0 +1,90 @@
+/* Main app styles */
+
+body {
+  font-family: sans-serif;
+  margin: 20px;
+  padding: 0;
+}
+
+h1 {
+  margin-top: 0;
+  font-size: 48px;
+  font-weight: 900;
+}
+
+.game-status {
+  height: 48px;
+  padding-top: 10px;
+}
+
+footer {
+  margin-top: 20px;
+  font-size: 12px;
+  font-style: italic;
+}
+
+.guess-square {
+  background: #fff;
+  border: 2px solid black;
+  float: left;
+  display: inline-block;
+  font-size: 32px;
+  font-weight: bold;
+  line-height: 48px;
+  height: 48px;
+  width: 48px;
+  min-height: 48px;
+  margin: -1px;
+  padding: 0;
+  text-align: center;
+}
+
+.guess-board-row:after {
+  clear: both;
+  content: '';
+  display: table;
+  margin: 0 auto;
+}
+
+.game,
+.key-board-wrapper,
+.guess-board-wrapper-outer,
+.game-status {
+  display: block;
+  text-align: center;
+}
+
+.guess-board-wrapper-inner {
+  display: inline-block;
+  margin: 0 auto;
+}
+
+.guess-board-sizer {
+  display: inline-block;
+  width: 100%;
+}
+
+.key-square {
+  font-size: 18px;
+  margin: -1px;
+  border: 2px solid black;
+}
+
+button {
+  background: white;
+  border: 2px solid black;
+  font-size: 18px;
+  font-weight: bold;
+  margin: 0 5px;
+  padding: 5px 10px;
+}
+
+button:focus,
+button:hover,
+.key-square:focus,
+.key-square:hover {
+  background: black;
+  color: white;
+  border: 2px solid black;
+  outline: none;
+}
