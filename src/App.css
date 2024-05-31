@@ -29,12 +29,11 @@ footer {
   border: 2px solid black;
   float: left;
   display: inline-block;
-  font-size: 32px;
+  font-size: 30px;
   font-weight: bold;
-  line-height: 48px;
-  height: 48px;
-  width: 48px;
-  min-height: 48px;
+  line-height: 42px;
+  height: 42px;
+  width: 42px;
   margin: -1px;
   padding: 0;
   text-align: center;
@@ -67,6 +66,7 @@ footer {
 
 .key-square {
   font-size: 14px;
+  padding: 5px;
   margin: -1px;
   border: 2px solid black;
 }

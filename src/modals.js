@@ -88,10 +88,9 @@ export const HowToPlayModalButton = ({openModalCallback, closeModalCallback}) =>
         body={
             <>
             <p>You must guess the 5 letter word within 5 turns.</p>
-            <p>You can enter guesses your touchscreen device, or with a keyboard and mouse.</p>
-            <p>When you enter a guess the tiles will change colour to show how close you were to the word.</p>
-            <div className="guess-board-wrapper-outer">
-                <div className='guess-board-sizer'></div>
+            <p>When you enter a guess the tiles change colour to show how close you were.</p>
+            <div className="guess-board-wrapper-outer" style={{margin : "-20px auto"}}>
+                <div className='guess-board-sizer' ></div>
                     <div className="guess-board-wrapper-inner">
                         <div className='guess-board-row'>
                             <GuessSquare
@@ -125,7 +124,7 @@ export const HowToPlayModalButton = ({openModalCallback, closeModalCallback}) =>
             </div>
             <p>An <span style={{color: UIColours.ALMOST_CORRECT_GUESS.background}}>orange</span> square indicates that the letter is in the word, but not in that position.</p>
             {/* <p>A white square indicates that the letter isn't in the word at all.</p> */}
-            <div className="guess-board-wrapper-outer">
+            <div className="guess-board-wrapper-outer" style={{margin : "-20px auto"}}>
                 <div className='guess-board-sizer'></div>
                     <div className="guess-board-wrapper-inner">
                         <div className='guess-board-row'>
@@ -158,7 +157,7 @@ export const HowToPlayModalButton = ({openModalCallback, closeModalCallback}) =>
                     </div>
                 <div className='guess-board-sizer'></div>
             </div>
-            <p>And a <span style={{color: UIColours.CORRECT_GUESS.background}}>green</span> square indicates that the letter is in the word, and in that position.</p>
+            <p>And a <span style={{color: UIColours.CORRECT_GUESS.background}}>green</span> square indicates that you got the correct letter in the correct position.</p>
             </>
         } 
         buttonTextNo="Close"
