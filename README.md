@@ -1,8 +1,12 @@
 # Worder: a word-guessing game
 
 A fun word-guessing game inspired by New York Times' Wordle game: https://www.nytimes.com/games/wordle
+The key difference is that Worder is Harder!
+It has more obscure words, a mixture of regional spellings (e.g. "METRE" and "METER" are both in the dictionary!), and fewer attempts at guessing allowed!
 
-This project was built using just React, react-spring, and js-confetti (because who doesn't love a bit of confetti?)
+Worder can also be played infinitely - no waiting for 'tomorrow's Wordle'.
+
+This project was built using just React, react-spring, and react-modal.
 
 The dictionary for the game was sourced from https://www-cs-faculty.stanford.edu/~knuth/sgb-words.txt
 
@@ -10,7 +14,7 @@ The dictionary for the game was sourced from https://www-cs-faculty.stanford.edu
 
 You can play using your touchscreen device, or with a keyboard and mouse.
 
-You have to guess the word in 5 goes.
+You have to guess the word in 5 attempts.
 
 Each guess you make has to be a valid 5-letter word.
 

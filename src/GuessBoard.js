@@ -5,7 +5,7 @@ import { useSpring, animated } from 'react-spring';
 import { UIColours, AnimationTimings, GameState, NUMBER_OF_LETTERS_IN_WORD} from './consts.js';
 
 
-function GuessSquare({ key, value, animationDelay, colours }) { 
+export function GuessSquare({ key, value, animationDelay, colours }) { 
     let animationDuration = (animationDelay >= 0) ? AnimationTimings.REVEAL_DURATION : 0;
   
     const styleProps = useSpring({

@@ -2,8 +2,8 @@ export const NUMBER_OF_LETTERS_IN_WORD = 5;
 export const NUMBER_OF_GUESSES_ALLOWED = 5;
 
 export const AnimationTimings = {
-  REVEAL_DURATION: 200, // ms
-  REVEAL_DELAY: 300,
+  REVEAL_DURATION: 150, // ms
+  REVEAL_DELAY: 200,
   TOTAL_REVEAL_DURATION: 0
 }
 // hacky to redefine like this, but can't define using REVEAL_DURATION and REVEAL_DELAY until AnimationTimings is defined
@@ -45,8 +45,7 @@ export const GameState = {
 
 export const GameStatusText = {
   GUESSING: <span>Enter a guess!<br></br>Use a keyboard or click the letters below</span>,
-  WON: 'Congrats! You won! \uD83C\uDF89',
-  LOST: (wordToGuess) => <span>You lost! The word was <strong>{wordToGuess}</strong><br></br>Click <strong>'New Game'</strong> to try again</span>,
+  BLANK: '',
   NOT_IN_DICTIONARY: 'Word not in dictionary!',
   TOO_SHORT: 'Guess too short!',
   REVEALING: 'Hmmm......'

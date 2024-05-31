@@ -17,24 +17,27 @@ const KeyboardKey = forwardRef(({value, onSquareClick, colours=[UIColours.DEFAUL
     }); 
     
     return (
-      <animated.button className="key-square" onClick={() => onSquareClick(value)} style={styleProps} ref={ref} tabIndex="0">
+      <animated.button className="key-square" onClick={() => onSquareClick(value)} style={styleProps} tabIndex="0">
         {value}     
       </animated.button>
     );
   });
   
-export function Keyboard( {onLetterEntered, onBackspace, onGuessEntered, wordToGuess, guesses, currentGuessIndex, gameState, firstKeyRef} ) { 
+export function Keyboard( {onLetterEntered, onBackspace, onGuessEntered, wordToGuess, guesses, currentGuessIndex, gameState, blockKeyboardInput} ) { 
     const animationDelay = (gameState === GameState.GUESSING && currentGuessIndex === 0) ? 0 : (AnimationTimings.REVEAL_DELAY * NUMBER_OF_LETTERS_IN_WORD); // this ensures keyboard styling clears instantly on new game
   
     useEffect(() => {
       const handleKeyUp = (event) => {
-        const key = event.key.toUpperCase();
-        if (/^[A-Z]$/.test(key)) {
-          onLetterEntered(key);
-        } else if (key === 'BACKSPACE' || key === 'DELETE') {
-          onBackspace();
-        } else if (key === 'ENTER') {
-          onGuessEntered();
+        if (!blockKeyboardInput)
+        {
+          const key = event.key.toUpperCase();
+          if (/^[A-Z]$/.test(key)) {
+            onLetterEntered(key);
+          } else if (key === 'BACKSPACE' || key === 'DELETE') {
+            onBackspace();
+          } else if (key === 'ENTER') {
+            onGuessEntered();
+          }
         }
       };
   
@@ -45,11 +48,6 @@ export function Keyboard( {onLetterEntered, onBackspace, onGuessEntered, wordToG
       };
     }, [onLetterEntered, onBackspace, onGuessEntered]);
   
-    // TODO - this is not 100% correct 
-    // set wordToGuess to CASAS
-    // guess FREAK
-    // A on GuessSquare turns GREEN
-    // A on Keyboard turns ORANGE
     function getUIColoursForKey(value, wordToGuess, guesses, currentGuessIndex, gameState) {
       let toColours = null;
       let fromColours = UIColours.DEFAULT;
@@ -64,13 +62,18 @@ export function Keyboard( {onLetterEntered, onBackspace, onGuessEntered, wordToG
         {
           if (wordToGuess.includes(value))
           {
-            if (wordToGuess.indexOf(value) === currentGuess.findIndex(guess => guess.includes(value)))
+            toColours = UIColours.ALMOST_CORRECT_GUESS;
+            
+            for (const letter of currentGuess)
             {
-              toColours = UIColours.CORRECT_GUESS;
-            }
-            else
-            {
-              toColours = UIColours.ALMOST_CORRECT_GUESS;
+              for (const wordToGuessLetter of wordToGuess)
+              {
+                if (letter === wordToGuessLetter)
+                {
+                  toColours = UIColours.CORRECT_GUESS;
+                  break;
+                }
+              }
             }
           }
           else
@@ -86,15 +89,22 @@ export function Keyboard( {onLetterEntered, onBackspace, onGuessEntered, wordToG
         if (wordToGuess.includes(value))
         {
           fromColours = UIColours.ALMOST_CORRECT_GUESS;
-          for (const element of previousGuesses)
+          for (const previousGuess of previousGuesses)
           {
-            if (element.includes(value))
+            if (previousGuess.includes(value))
             {
-              if (wordToGuess.indexOf(value) === element.findIndex(guess => guess.includes(value)))
+              for (const letter of previousGuess)
               {
-                fromColours = UIColours.CORRECT_GUESS;
-                break;
+                for (const wordToGuessLetter of wordToGuess)
+                {
+                  if (letter === wordToGuessLetter)
+                  {
+                    fromColours = UIColours.CORRECT_GUESS;
+                    break;
+                  }
+                }
               }
+
             }
           }
         }
@@ -138,7 +148,7 @@ export function Keyboard( {onLetterEntered, onBackspace, onGuessEntered, wordToG
           <KeyboardKey value="L" onSquareClick={onLetterEntered} colours={getUIColoursForKey("L", wordToGuess, guesses, currentGuessIndex, gameState)} animationDelay={animationDelay} />
         </div>
         <div className="key-board-row">
-          <KeyboardKey value="ENTER" onSquareClick={onGuessEntered} ref={firstKeyRef}/>
+          <KeyboardKey value="ENTER" onSquareClick={onGuessEntered}/>
           <KeyboardKey value="Z" onSquareClick={onLetterEntered} colours={getUIColoursForKey("Z", wordToGuess, guesses, currentGuessIndex, gameState)} animationDelay={animationDelay} />
           <KeyboardKey value="X" onSquareClick={onLetterEntered} colours={getUIColoursForKey("X", wordToGuess, guesses, currentGuessIndex, gameState)} animationDelay={animationDelay} />
           <KeyboardKey value="C" onSquareClick={onLetterEntered} colours={getUIColoursForKey("C", wordToGuess, guesses, currentGuessIndex, gameState)} animationDelay={animationDelay} />
