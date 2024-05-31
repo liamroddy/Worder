@@ -1,7 +1,9 @@
 # Worder: a word-guessing game
 
-A fun word-guessing game inspired by New York Times' Wordle game: https://www.nytimes.com/games/wordle
+A fun word-guessing game inspired by New York Times' Wordle game: https://www.nytimes.com/games/wordle.
+
 The key difference is that Worder is Harder!
+
 It has more obscure words, a mixture of regional spellings (e.g. "METRE" and "METER" are both in the dictionary!), and fewer attempts at guessing allowed!
 
 Worder can also be played infinitely - no waiting for 'tomorrow's Wordle'.
