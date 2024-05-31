@@ -64,15 +64,12 @@ export function Keyboard( {onLetterEntered, onBackspace, onGuessEntered, wordToG
           {
             toColours = UIColours.ALMOST_CORRECT_GUESS;
             
-            for (const letter of currentGuess)
+            for (let i = 0; i < currentGuess.length; i++)
             {
-              for (const wordToGuessLetter of wordToGuess)
+              if (currentGuess[i] === value && currentGuess[i] === wordToGuess[i])
               {
-                if (letter === wordToGuessLetter)
-                {
-                  toColours = UIColours.CORRECT_GUESS;
-                  break;
-                }
+                toColours = UIColours.CORRECT_GUESS;
+                break;
               }
             }
           }
@@ -93,18 +90,14 @@ export function Keyboard( {onLetterEntered, onBackspace, onGuessEntered, wordToG
           {
             if (previousGuess.includes(value))
             {
-              for (const letter of previousGuess)
-              {
-                for (const wordToGuessLetter of wordToGuess)
+              for (let i = 0; i < currentGuess.length; i++)
                 {
-                  if (letter === wordToGuessLetter)
+                  if (previousGuess[i] === value && previousGuess[i] === wordToGuess[i])
                   {
-                    fromColours = UIColours.CORRECT_GUESS;
+                    toColours = UIColours.CORRECT_GUESS;
                     break;
                   }
                 }
-              }
-
             }
           }
         }
