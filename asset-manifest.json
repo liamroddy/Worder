@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.css": "/worder/static/css/main.c8eb59f5.css",
-    "main.js": "/worder/static/js/main.98a2e361.js",
-    "index.html": "/worder/index.html",
-    "main.c8eb59f5.css.map": "/worder/static/css/main.c8eb59f5.css.map",
-    "main.98a2e361.js.map": "/worder/static/js/main.98a2e361.js.map"
+    "main.css": "/Worder/static/css/main.c8eb59f5.css",
+    "main.js": "/Worder/static/js/main.98a2e361.js",
+    "index.html": "/Worder/index.html",
+    "main.c8eb59f5.css.map": "/Worder/static/css/main.c8eb59f5.css.map",
+    "main.98a2e361.js.map": "/Worder/static/js/main.98a2e361.js.map"
   },
   "entrypoints": [
     "static/css/main.c8eb59f5.css",
