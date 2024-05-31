@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/worder/static/css/main.c8eb59f5.css",
+    "main.js": "/worder/static/js/main.98a2e361.js",
+    "index.html": "/worder/index.html",
+    "main.c8eb59f5.css.map": "/worder/static/css/main.c8eb59f5.css.map",
+    "main.98a2e361.js.map": "/worder/static/js/main.98a2e361.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.c8eb59f5.css",
+    "static/js/main.98a2e361.js"
+  ]
+}
