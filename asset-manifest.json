@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/Worder/static/css/main.a5c854dd.css",
+    "main.css": "/Worder/static/css/main.b1872c93.css",
     "main.js": "/Worder/static/js/main.d03ae50f.js",
     "index.html": "/Worder/index.html",
-    "main.a5c854dd.css.map": "/Worder/static/css/main.a5c854dd.css.map",
+    "main.b1872c93.css.map": "/Worder/static/css/main.b1872c93.css.map",
     "main.d03ae50f.js.map": "/Worder/static/js/main.d03ae50f.js.map"
   },
   "entrypoints": [
-    "static/css/main.a5c854dd.css",
+    "static/css/main.b1872c93.css",
     "static/js/main.d03ae50f.js"
   ]
 }
