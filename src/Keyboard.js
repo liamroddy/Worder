@@ -17,8 +17,12 @@ const KeyboardKey = forwardRef(({value, onSquareClick, colours=[UIColours.DEFAUL
     }); 
     
     return (
-      <animated.button className="key-square" onClick={() => onSquareClick(value)} style={styleProps} tabIndex="0">
-        {value}     
+      <animated.button
+        className="key-square"
+        id={value === 'ENTER' ? 'enter-key-square' : ''}
+        onClick={() => onSquareClick(value)}
+        style={styleProps} tabIndex="0">
+          {value}     
       </animated.button>
     );
   });

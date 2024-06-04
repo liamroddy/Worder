@@ -65,10 +65,12 @@ footer {
 }
 
 .key-square {
-  font-size: 16px;
-  padding: 5px;
+  font-size: 18px;
   margin: -1px;
   border: 2px solid black;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
 }
 
 button {
@@ -115,4 +117,51 @@ button:hover,
 
 .modal h2 {
   margin-top: 0px;
+}
+
+@media (max-width: 600px) {
+  body {
+    margin: 2vw;
+  }
+  
+  h1 {
+    font-size: 14vw;
+    margin-bottom: 2vw;
+  }
+  
+  .game-status {
+    font-size: 4vw;
+    height: 10vw;
+    padding-top: 4vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  footer {
+    margin-top: 4.5vw;
+    font-size: 3.5vw;
+  }
+  
+  button {
+    font-size: 5vw;
+  }
+  
+  .key-square {
+    width: 9vw;
+    height: 9vw;
+    font-size: 5.5vw;
+    padding: 1.5vw;
+  }
+
+  #enter-key-square {
+    width: auto;
+  }
+
+  .guess-square {
+    font-size: 12vw;
+    line-height: 12vw;
+    height: 12vw;
+    width: 12vw;
+  }
 }
