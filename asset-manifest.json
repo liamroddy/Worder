@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/Worder/static/css/main.e90070d0.css",
-    "main.js": "/Worder/static/js/main.c2b5bfae.js",
+    "main.css": "/Worder/static/css/main.5044f187.css",
+    "main.js": "/Worder/static/js/main.4f8c7f21.js",
     "index.html": "/Worder/index.html",
-    "main.e90070d0.css.map": "/Worder/static/css/main.e90070d0.css.map",
-    "main.c2b5bfae.js.map": "/Worder/static/js/main.c2b5bfae.js.map"
+    "main.5044f187.css.map": "/Worder/static/css/main.5044f187.css.map",
+    "main.4f8c7f21.js.map": "/Worder/static/js/main.4f8c7f21.js.map"
   },
   "entrypoints": [
-    "static/css/main.e90070d0.css",
-    "static/js/main.c2b5bfae.js"
+    "static/css/main.5044f187.css",
+    "static/js/main.4f8c7f21.js"
   ]
 }
