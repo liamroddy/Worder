@@ -75,11 +75,16 @@ footer {
 
 button {
   background: white;
+  border-radius: 100px;
   border: 2px solid black;
   font-size: 18px;
   font-weight: bold;
   margin: 0 5px;
   padding: 5px 10px;
+}
+
+.key-square {
+  border-radius: 0;
 }
 
 button:focus,
