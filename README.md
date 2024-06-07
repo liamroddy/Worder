@@ -8,6 +8,8 @@ It has more obscure words, a mixture of regional spellings (e.g. "METRE" and "ME
 
 Worder can also be played infinitely - no waiting for 'tomorrow's Wordle'.
 
+It has a responsive interface, so it should run well and look good on pretty much any device.
+
 This project was built using just React, react-spring, and react-modal.
 
 The dictionary for the game was sourced from https://www-cs-faculty.stanford.edu/~knuth/sgb-words.txt
@@ -34,4 +36,4 @@ A is in the word, but it's not the first letter in the word. P, L and E aren't i
 
 ## The Game in Action:
 
-https://github.com/liamroddy/Worder/assets/38569656/359993f2-f7cc-4803-a818-7a3e6da37e7b
+https://github.com/liamroddy/Worder/assets/38569656/b43b7666-bac1-456a-923f-6415656df15d
