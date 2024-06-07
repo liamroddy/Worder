@@ -119,6 +119,53 @@ button:hover,
   margin-top: 0px;
 }
 
+/* Bar chart styling */
+
+.bar-chart-container {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+.bar-chart-blank p {
+  font-style: italic;
+  margin-top: 0;
+}
+
+.bar-container-outer {
+  width: 32px;
+  margin: 2px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin-bottom: 0;
+}
+
+.bar-container-inner {
+  height: 100px;
+  width: 100%;
+}
+
+.bar-chart-bar-sizer {
+  width: 100%;
+  height: 100px;
+}
+
+.bar-chart-bar {
+  width: 100%;
+  background-color: green;
+}
+
+.bar-chart-label {
+  margin-top: 6px;
+  width: 100%;
+  text-align: center;
+  font-weight: 500;
+}
+
+/* END bar chart styling */
+
 @media (max-width: 600px) {
   body {
     margin: 2vw;

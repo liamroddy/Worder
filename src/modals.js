@@ -45,6 +45,40 @@ export const GenericModal = ({title, body, onClickYes, buttonTextYes, buttonText
     );
 }
 
+const getStatsBody = (gamesPlayed, wins) => {
+    const gamesWon = Object.values(wins).reduce((a, b) => a + b, 0);
+    const gamesLost = gamesPlayed - gamesWon;
+    const largestNumberOfWins = Math.max(...Object.values(wins));
+    
+    return (
+        <>
+          <p><strong>Games Played:</strong> {gamesPlayed}</p>
+          <p><strong>Lost:</strong> {gamesLost}</p>
+          <p><strong>Won:</strong> {gamesWon}</p>
+          <h3>Wins breakdown:</h3>
+          <div className='bar-chart-container'>
+            {gamesWon === 0 ? (
+                <div className="bar-chart-blank">
+                <p>No wins yet!</p>
+                </div>
+            ) : (
+                <>
+                {Object.entries(wins).map(([guesses, winCount], index) => (
+                    <div className='bar-container-outer' key={index}>
+                    <div className='bar-container-inner'>
+                        <div className='bar-chart-bar-sizer' style={{height: `${gamesWon === 0 ? "100%" : (100-((winCount/largestNumberOfWins)*100))}%`}}></div>
+                        <div className='bar-chart-bar' style={{height: `${gamesWon === 0 ? 0 : (winCount/largestNumberOfWins)*100}%`}}></div>
+                    </div>
+                    <span className="bar-chart-label">{parseInt(guesses) + 1}</span>
+                    </div>
+                ))}
+                </>
+            )}
+          </div>
+        </>
+    );
+}
+
 export const GiveUpModalButton = ({onClickYes, openModalCallback, closeModalCallback}) => (
     <GenericModal 
         title="Give Up" 
@@ -58,10 +92,15 @@ export const GiveUpModalButton = ({onClickYes, openModalCallback, closeModalCall
     />
 );
 
-export const GameOverModal = ({onClickYes, wordToGuess, isModalOpenExternal, openModalCallback, closeModalCallback}) => (
+export const GameOverModal = ({gamesPlayed, wins, onClickYes, wordToGuess, isModalOpenExternal, openModalCallback, closeModalCallback}) => (
     <GenericModal 
         title="Game Over" 
-        body={<p>Sorry! The word was <strong>{wordToGuess}</strong>.<br></br>Try again?</p>}
+        body={<>
+        <p>Sorry! The word was <strong>{wordToGuess}</strong>.</p>
+        <h2>Stats:</h2>
+            {getStatsBody(gamesPlayed, wins)}
+        <h2>Try again?</h2>
+        </>}
         onClickYes={onClickYes} 
         buttonTextYes="New Game"
         isModalOpenExternal={isModalOpenExternal}
@@ -70,13 +109,29 @@ export const GameOverModal = ({onClickYes, wordToGuess, isModalOpenExternal, ope
     />
 );
 
-export const WinModal = ({onClickYes, wordToGuess, isModalOpenExternal, openModalCallback, closeModalCallback}) => (
+export const WinModal = ({gamesPlayed, currentGuessIndex, wins, onClickYes, wordToGuess, isModalOpenExternal, openModalCallback, closeModalCallback}) => (
     <GenericModal 
         title="Nice One!" 
-        body={<p>Congrats, you correctly guessed the word <strong>{wordToGuess}</strong>.<br></br>Try again?</p>}
+        body={<>
+            <p>Congrats, you correctly guessed the word <strong>{wordToGuess}</strong> in <strong>{parseInt(currentGuessIndex) + 1}</strong> guesses.</p>
+            <h2>Stats:</h2>
+                {getStatsBody(gamesPlayed, wins)}
+            <h2>Play again?</h2>
+            </>}
         onClickYes={onClickYes} 
         buttonTextYes="New Game"
         isModalOpenExternal={isModalOpenExternal}
+        openModalCallback={openModalCallback}
+        closeModalCallback={closeModalCallback}
+    />
+);
+
+export const StatsModalButton = ({gamesPlayed, wins, openModalCallback, closeModalCallback}) => (
+    <GenericModal 
+        title="Statistics" 
+        body={getStatsBody(gamesPlayed, wins)}
+        buttonTextNo="Close"
+        showTriggerButton={true}
         openModalCallback={openModalCallback}
         closeModalCallback={closeModalCallback}
     />

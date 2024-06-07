@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 
 import { Keyboard } from './Keyboard.js';
 import { GuessBoard } from './GuessBoard.js';
-import { GiveUpModalButton, HowToPlayModalButton, GameOverModal, WinModal } from './modals.js';
+import { GiveUpModalButton, HowToPlayModalButton, StatsModalButton, GameOverModal, WinModal } from './modals.js';
 
 import { GameState, GameStatusText, NUMBER_OF_GUESSES_ALLOWED, NUMBER_OF_LETTERS_IN_WORD} from './consts.js';
 import { dictionary } from './dictionary';
@@ -22,6 +22,30 @@ export default function Game() {
   const [isWinModalOpen, setIsWinModalOpen] = useState(false);
 
   const [blockKeyboardInput, setBlockKeyboardInput] = useState(false);
+
+  const [gamesPlayed, setGamesPlayed] = useState(0);
+  const [wins, setWins] = useState(Array(NUMBER_OF_GUESSES_ALLOWED).fill(0));
+
+  // save game stats to browser storage on update
+  useEffect(() => {
+    const gameStatistics = { gamesPlayed, wins };
+    localStorage.setItem('gameStatistics', JSON.stringify(gameStatistics));
+  }, [gamesPlayed, wins]);
+
+  function onWin() {
+    setGameState(GameState.WON);
+    setIsWinModalOpen(true);
+    setGameStatusText(GameStatusText.BLANK);
+
+    console.log("onWin");
+
+    setGamesPlayed(prevGamesPlayed => prevGamesPlayed + 1);
+    setWins(prevWins => {
+      const newWins = [...prevWins];
+      newWins[currentGuessIndex-1]++;
+      return newWins;
+    });
+  } 
 
   function newGame() {
     const word = dictionary[Math.floor(Math.random() * dictionary.length)];
@@ -60,12 +84,23 @@ export default function Game() {
     setGameState(GameState.LOST);
     setIsGameOverModalOpen(true);
     setGameStatusText(GameStatusText.BLANK);
+
+    setGamesPlayed(prevGamesPlayed => prevGamesPlayed + 1);
   }
 
   function onWin() {
     setGameState(GameState.WON);
     setIsWinModalOpen(true);
     setGameStatusText(GameStatusText.BLANK);
+
+    console.log("onWin");
+
+    setGamesPlayed(prevGamesPlayed => prevGamesPlayed + 1);
+    setWins(prevWins => {
+      const newWins = [...prevWins];
+      newWins[currentGuessIndex]++;
+      return newWins;
+    });
   }
 
   useEffect(() => {
@@ -176,6 +211,7 @@ export default function Game() {
       <div className='game-top-bar'>
         <HowToPlayModalButton openModalCallback={openModalCallback} closeModalCallback={closeModalCallback}></HowToPlayModalButton>
         <GiveUpModalButton onClickYes={onLose} openModalCallback={openModalCallback} closeModalCallback={closeModalCallback}></GiveUpModalButton>
+        <StatsModalButton gamesPlayed={gamesPlayed} wins={wins} openModalCallback={openModalCallback} closeModalCallback={closeModalCallback}></StatsModalButton>
       </div>
       <div className="game-status">{gameStatusText}</div>
       <div className="guess-board-wrapper-outer">
@@ -193,8 +229,8 @@ export default function Game() {
         </footer>
       </div>
 
-      <GameOverModal onClickYes={newGame} wordToGuess={wordToGuess} isModalOpenExternal={isGameOverModalOpen} openModalCallback={openModalCallback} closeModalCallback={closeModalCallback}></GameOverModal>
-      <WinModal onClickYes={newGame} wordToGuess={wordToGuess} isModalOpenExternal={isWinModalOpen} openModalCallback={openModalCallback} closeModalCallback={closeModalCallback}></WinModal>
+      <GameOverModal gamesPlayed={gamesPlayed} wins={wins} onClickYes={newGame} wordToGuess={wordToGuess} isModalOpenExternal={isGameOverModalOpen} openModalCallback={openModalCallback} closeModalCallback={closeModalCallback}></GameOverModal>
+      <WinModal gamesPlayed={gamesPlayed} currentGuessIndex={currentGuessIndex} wins={wins} onClickYes={newGame} wordToGuess={wordToGuess} isModalOpenExternal={isWinModalOpen} openModalCallback={openModalCallback} closeModalCallback={closeModalCallback}></WinModal>
     </div>
   );
 }
