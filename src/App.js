@@ -7,7 +7,7 @@ import { GiveUpModalButton, HowToPlayModalButton, StatsModalButton, GameOverModa
 import { GameState, GameStatusText, NUMBER_OF_GUESSES_ALLOWED, NUMBER_OF_LETTERS_IN_WORD} from './consts.js';
 import { dictionary } from './dictionary';
 
-import './App.css';
+import './App.scss';
 
 export default function Game() {
   const [wordToGuess, setWordToGuess] = useState(dictionary[0]);
@@ -205,6 +205,7 @@ export default function Game() {
 
   return (
     <div className="game">
+      <div className='noise'></div>
       <div className='game-title-bar'>
         <h1>WORDER</h1>
       </div>

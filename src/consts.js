@@ -4,6 +4,8 @@ export const NUMBER_OF_GUESSES_ALLOWED = 5;
 export const AnimationTimings = {
   REVEAL_DURATION: 150, // ms
   REVEAL_DELAY: 200,
+  GUESSING_PULSE_DURATION: 1000,
+  GUESSING_PULSE_DELAY: 0,
   TOTAL_REVEAL_DURATION: 0
 }
 // hacky to redefine like this, but can't define using REVEAL_DURATION and REVEAL_DELAY until AnimationTimings is defined
@@ -11,28 +13,28 @@ AnimationTimings.TOTAL_REVEAL_DURATION = (NUMBER_OF_LETTERS_IN_WORD * AnimationT
 
 export const UIColours = {
   DEFAULT: {
-    text: 'black',
-    background: 'white'
+    text: 'ivory',
+    background: '#111a1f'
   },
   GUESSING: {
-    text: 'white',
-    background: '#b2acfa'
+    text: 'ivory',
+    background: '#3b4863'
   },
   CORRECT_GUESS: {
-    text: 'white',
-    background: 'green'
+    text: '#111a1f',
+    background: '#4ab19d'
   },
   ALMOST_CORRECT_GUESS: {
-    text: 'white',
-    background: 'orange'
+    text: '#111a1f',
+    background: '#e17a47'
   },
   INCORRECT_GUESS_SQUARE: {
-    text: 'black',
-    background: 'white'
+    text: 'ivory',
+    background: '#111a1f'
   },
   INCORRECT_GUESS_KEY: {
-    text: 'black',
-    background: 'grey'
+    text: 'ivory',
+    background: '#45545b'
   }
 };
 

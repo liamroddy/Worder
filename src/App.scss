@@ -1,9 +1,27 @@
 /* Main app styles */
 
-body {
+html {
   font-family: sans-serif;
-  margin: 20px;
-  padding: 0;
+  color: ivory;
+  background: linear-gradient(to bottom, #111a1f, #19252c);
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.noise {
+  background-image: url('\noise.png');
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  opacity: 0.1;
+  z-index: -1;
 }
 
 h1 {
@@ -25,8 +43,8 @@ footer {
 }
 
 .guess-square {
-  background: #fff;
-  border: 2px solid black;
+  background: #111a1f;
+  border: 2px solid ivory;
   float: left;
   display: inline-block;
   font-size: 30px;
@@ -67,16 +85,17 @@ footer {
 .key-square {
   font-size: 18px;
   margin: -1px;
-  border: 2px solid black;
+  border: 2px solid ivory;
   display: inline-flex;
   justify-content: center;
   align-items: center;
 }
 
 button {
-  background: white;
+  background: #111a1f;
   border-radius: 100px;
-  border: 2px solid black;
+  color: ivory;
+  border: 2px solid ivory;
   font-size: 18px;
   font-weight: bold;
   margin: 0 5px;
@@ -91,9 +110,9 @@ button:focus,
 button:hover,
 .key-square:focus,
 .key-square:hover {
-  background: black;
-  color: white;
-  border: 2px solid black;
+  background: ivory;
+  color: #111a1f;
+  border: 2px solid ivory;
   outline: none;
 }
 
@@ -114,7 +133,7 @@ button:hover,
   min-width: 200px;
   margin: 20px;
   padding: 40px;
-  background-color: white;
+  background-color: #111a1f;
   border-radius: 10px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
   text-align: center;
@@ -159,7 +178,7 @@ button:hover,
 
 .bar-chart-bar {
   width: 100%;
-  background-color: green;
+  background-color: #4ab19d;
 }
 
 .bar-chart-label {

@@ -5,14 +5,13 @@ import { useSpring, animated } from 'react-spring';
 import { UIColours, AnimationTimings, GameState, NUMBER_OF_LETTERS_IN_WORD} from './consts.js';
 
 
-export function GuessSquare({ key, value, animationDelay, colours }) { 
-    let animationDuration = (animationDelay >= 0) ? AnimationTimings.REVEAL_DURATION : 0;
-  
+export function GuessSquare({ key, value, animationDuration, animationDelay, loopAnimation, colours }) {  
     const styleProps = useSpring({
-      from: { color: UIColours.DEFAULT.text, backgroundColor: UIColours.DEFAULT.background},
+      from: animationDuration > 0 ? { color: UIColours.DEFAULT.text, backgroundColor: UIColours.DEFAULT.background} : {color: colours.text, backgroundColor: colours.background},
       to: { color: colours.text, backgroundColor: colours.background},
       delay: animationDelay,
       config: { duration: animationDuration },
+      loop: loopAnimation ? { reverse: true } : false
     }); 
     
     return (
@@ -66,11 +65,33 @@ export function GuessBoard({guesses, wordToGuess, currentGuessIndex, gameState, 
     }
   
     function getAnimationDelay(rowIndex, colIndex, currentGuessIndex, gameState) {
-      if (rowIndex === currentGuessIndex && gameState === GameState.REVEALING)
+      if (rowIndex === currentGuessIndex)
       {
-        return colIndex * AnimationTimings.REVEAL_DELAY;
+        if (gameState === GameState.REVEALING)
+        {
+          return colIndex * AnimationTimings.REVEAL_DELAY;
+        }
+        else if (gameState === GameState.GUESSING)
+        {
+          return (colIndex * AnimationTimings.GUESSING_PULSE_DELAY);
+        }
       }
-      return -1;
+      return 0;
+    }
+
+    function getAnimationDuration(rowIndex, currentGuessIndex, gameState) {
+      if (rowIndex === currentGuessIndex)
+      {
+        if (gameState === GameState.REVEALING)
+        {
+          return AnimationTimings.REVEAL_DURATION;
+        }
+        else if (gameState === GameState.GUESSING)
+        {
+          return AnimationTimings.GUESSING_PULSE_DURATION;
+        }
+      }
+      return 0;
     }
   
     return (
@@ -81,7 +102,9 @@ export function GuessBoard({guesses, wordToGuess, currentGuessIndex, gameState, 
               <GuessSquare
                 key={(rowIndex * NUMBER_OF_LETTERS_IN_WORD) + colIndex}
                 value={value}
+                animationDuration={getAnimationDuration(rowIndex, currentGuessIndex, gameState)}
                 animationDelay={getAnimationDelay(rowIndex, colIndex, currentGuessIndex, gameState)}
+                loopAnimation={gameState === GameState.GUESSING}
                 colours={getUIColoursForSquare(value, wordToGuess, currentGuessIndex, rowIndex, colIndex, gameState)}
               />
             ))}
