@@ -1,9 +1,17 @@
-/* Main app styles */
+// Define color variables
+$primary-light: ivory;
+$primary-dark: #111a1f;
+$gradient-start: $primary-dark;
+$gradient-end: #19252c;
+$low-opacity-black: rgba(0, 0, 0, 0.4);
 
+$green: #4ab19d;
+
+// Use color variables
 html {
   font-family: sans-serif;
-  color: ivory;
-  background: linear-gradient(to bottom, #111a1f, #19252c);
+  color: $primary-light;
+  background: linear-gradient(to bottom, $gradient-start, $gradient-end);
   width: 100vw;
   height: 100vh;
   overflow: hidden;
@@ -20,7 +28,7 @@ html {
   position: fixed;
   top: 0;
   left: 0;
-  opacity: 0.1;
+  opacity: 0.2;
   z-index: -1;
 }
 
@@ -44,9 +52,8 @@ footer {
 
 .guess-square {
   background: #111a1f;
-  border: 2px solid ivory;
+  border: 2px solid $primary-light;
   float: left;
-  display: inline-block;
   font-size: 30px;
   font-weight: bold;
   line-height: 42px;
@@ -85,17 +92,17 @@ footer {
 .key-square {
   font-size: 18px;
   margin: -1px;
-  border: 2px solid ivory;
+  border: 2px solid $primary-light;
   display: inline-flex;
   justify-content: center;
   align-items: center;
 }
 
 button {
-  background: #111a1f;
+  background: $primary-dark;
   border-radius: 100px;
-  color: ivory;
-  border: 2px solid ivory;
+  color: $primary-light;
+  border: 2px solid $primary-light;
   font-size: 18px;
   font-weight: bold;
   margin: 0 5px;
@@ -110,9 +117,9 @@ button:focus,
 button:hover,
 .key-square:focus,
 .key-square:hover {
-  background: ivory;
-  color: #111a1f;
-  border: 2px solid ivory;
+  background: $primary-light;
+  color: $primary-dark;
+  border: 2px solid $primary-light;
   outline: none;
 }
 
@@ -125,7 +132,7 @@ button:hover,
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: $low-opacity-black;
 }
 
 .modal {
@@ -133,9 +140,9 @@ button:hover,
   min-width: 200px;
   margin: 20px;
   padding: 40px;
-  background-color: #111a1f;
+  background-color: $primary-dark;
   border-radius: 10px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 5px 15px $low-opacity-black;
   text-align: center;
 }
 
@@ -178,7 +185,7 @@ button:hover,
 
 .bar-chart-bar {
   width: 100%;
-  background-color: #4ab19d;
+  background-color: $green;
 }
 
 .bar-chart-label {

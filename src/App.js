@@ -37,8 +37,6 @@ export default function Game() {
     setIsWinModalOpen(true);
     setGameStatusText(GameStatusText.BLANK);
 
-    console.log("onWin");
-
     setGamesPlayed(prevGamesPlayed => prevGamesPlayed + 1);
     setWins(prevWins => {
       const newWins = [...prevWins];
@@ -92,8 +90,6 @@ export default function Game() {
     setGameState(GameState.WON);
     setIsWinModalOpen(true);
     setGameStatusText(GameStatusText.BLANK);
-
-    console.log("onWin");
 
     setGamesPlayed(prevGamesPlayed => prevGamesPlayed + 1);
     setWins(prevWins => {
