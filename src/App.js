@@ -222,7 +222,11 @@ export default function Game() {
         <Keyboard onLetterEntered={onLetterEntered} onBackspace={onBackspace} onGuessEntered={onGuessEntered} wordToGuess={wordToGuess} guesses={guesses} currentGuessIndex={currentGuessIndex} gameState={gameState} blockKeyboardInput={blockKeyboardInput}/>
       </div>
       <div className="game-bottom-bar">
-        <footer>Warning: the dictionary for this game is sourced from<br></br><a href='https://www-cs-faculty.stanford.edu/~knuth/sgb-words.txt'>https://www-cs-faculty.stanford.edu/~knuth/sgb-words.txt</a><br></br>and may contain words that are not suitable for all audiences.<br></br>Player discretion is advised.
+        <footer>
+          View game source code on <a href='https://github.com/liamroddy/Worder/tree/main' target='_blank' rel='noreferrer'>GitHub</a>.
+          <br></br><br></br>Warning: the dictionary for this game is sourced from<br></br><a href='https://www-cs-faculty.stanford.edu/~knuth/sgb-words.txt'>https://www-cs-faculty.stanford.edu/~knuth/sgb-words.txt</a>
+          <br></br>and may contain words that are not suitable for all audiences.
+          <br></br>Player discretion is advised.
         </footer>
       </div>
 
