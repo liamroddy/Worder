@@ -195,7 +195,7 @@ export default function Game() {
       <div className="game-bottom-bar">
         <footer>
           View game source code on <a href='https://github.com/liamroddy/Worder/tree/main' target='_blank' rel='noreferrer'>GitHub</a>.
-          <br /><br />Warning: the dictionary for this game is sourced from<br /><a href='https://www-cs-faculty.stanford.edu/~knuth/sgb-words.txt'>https://www-cs-faculty.stanford.edu/~knuth/sgb-words.txt</a>
+          <br /><br />Warning: the dictionary for this game is sourced from <a href='https://www-cs-faculty.stanford.edu/~knuth/sgb-words.txt'>Stanford GraphBase</a>
           <br />and may contain words that are not suitable for all audiences.
           <br />Player discretion is advised.
         </footer>

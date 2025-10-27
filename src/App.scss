@@ -4,7 +4,7 @@ $primary-dark: #111a1f;
 $gradient-start: $primary-dark;
 $gradient-end: #19252c;
 $low-opacity-black: rgba(0, 0, 0, 0.4);
-$visited-link: #b0b0b0;
+$link-colour: #b0b0b0;
 
 $green: #4ab19d;
 
@@ -19,10 +19,13 @@ html {
   position: fixed;
   top: 0;
   left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-a:visited {
-  color: $visited-link;
+a {
+  color: $link-colour;
 }
 
 .noise {
