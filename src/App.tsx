@@ -25,10 +25,38 @@ export default function Game() {
 
   const [blockKeyboardInput, setBlockKeyboardInput] = useState<boolean>(false);
 
-  const [gamesPlayed, setGamesPlayed] = useState<number>(0);
-  const [wins, setWins] = useState<number[]>(Array(NUMBER_OF_GUESSES_ALLOWED).fill(0));
+  // Initialize game stats from localStorage using lazy initialization
+  const [gamesPlayed, setGamesPlayed] = useState<number>(() => {
+    const savedStats = localStorage.getItem('gameStatistics');
+    if (savedStats) {
+      try {
+        const { gamesPlayed: savedGamesPlayed } = JSON.parse(savedStats);
+        if (typeof savedGamesPlayed === 'number') {
+          return savedGamesPlayed;
+        }
+      } catch (error) {
+        console.error('Failed to load gamesPlayed from localStorage:', error);
+      }
+    }
+    return 0;
+  });
 
-  // save game stats to browser storage on update
+  const [wins, setWins] = useState<number[]>(() => {
+    const savedStats = localStorage.getItem('gameStatistics');
+    if (savedStats) {
+      try {
+        const { wins: savedWins } = JSON.parse(savedStats);
+        if (Array.isArray(savedWins) && savedWins.length === NUMBER_OF_GUESSES_ALLOWED) {
+          return savedWins;
+        }
+      } catch (error) {
+        console.error('Failed to load wins from localStorage:', error);
+      }
+    }
+    return Array(NUMBER_OF_GUESSES_ALLOWED).fill(0);
+  });
+
+  // save game stats to browser storage whenever they change
   useEffect(() => {
     const gameStatistics = { gamesPlayed, wins };
     localStorage.setItem('gameStatistics', JSON.stringify(gameStatistics));

@@ -48,7 +48,7 @@ describe('GuessBoard', () => {
     const guesses = createEmptyGuesses();
     guesses[0] = ['H', 'E', 'L', 'L', 'O'];
 
-    const { container } = render(
+    render(
       <GuessBoard
         guesses={guesses}
         wordToGuess={wordToGuess}

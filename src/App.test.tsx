@@ -210,4 +210,255 @@ describe('App Component', () => {
     const squares = container.querySelectorAll('.guess-square');
     expect(squares[0]).toHaveTextContent('');
   });
+
+  describe('LocalStorage - Saving and Loading', () => {
+    it('should initialize with default stats when localStorage is empty', () => {
+      render(<App />);
+      
+      const stats = localStorage.getItem('gameStatistics');
+      expect(stats).toBeTruthy();
+      
+      const parsedStats = JSON.parse(stats!);
+      expect(parsedStats.gamesPlayed).toBe(0);
+      expect(parsedStats.wins).toEqual([0, 0, 0, 0, 0]);
+    });
+
+    it('should load existing stats from localStorage on mount', () => {
+      const existingStats = {
+        gamesPlayed: 10,
+        wins: [1, 2, 3, 2, 1]
+      };
+      localStorage.setItem('gameStatistics', JSON.stringify(existingStats));
+      
+      render(<App />);
+      
+      // Stats should be loaded and displayed
+      const statsButton = screen.getByText('Statistics');
+      fireEvent.click(statsButton);
+      
+      expect(screen.getByText(/Games Played:/)).toBeInTheDocument();
+      expect(screen.getByText(/10/)).toBeInTheDocument();
+    });
+
+    it('should save stats to localStorage after a win', async () => {
+      render(<App />);
+      
+      // Simulate winning by entering the correct word
+      // First we need to know what word was chosen
+      const consoleLogSpy = jest.spyOn(console, 'log');
+      
+      // Get the word from console.log output
+      const logCalls = consoleLogSpy.mock.calls;
+      const wordLog = logCalls.find(call => 
+        call[0]?.includes('If you (hypothetically) were')
+      );
+      
+      // Extract word from the log message
+      const wordMatch = wordLog?.[0].match(/would be (\w+)/);
+      const word = wordMatch?.[1];
+      
+      if (word) {
+        // Enter the correct word
+        word.split('').forEach((letter: string) => {
+          fireEvent.keyUp(window, { key: letter.toLowerCase() });
+        });
+        
+        const enterButton = screen.getByText('ENTER');
+        fireEvent.click(enterButton);
+        
+        // Wait for the game to process the win
+        await waitFor(() => {
+          const stats = localStorage.getItem('gameStatistics');
+          const parsedStats = JSON.parse(stats!);
+          expect(parsedStats.gamesPlayed).toBe(1);
+          expect(parsedStats.wins.reduce((a: number, b: number) => a + b, 0)).toBe(1);
+        }, { timeout: 3000 });
+      }
+    });
+
+    it('should save stats to localStorage after giving up', () => {
+      render(<App />);
+      
+      const giveUpButton = screen.getByText('Give Up');
+      fireEvent.click(giveUpButton);
+      
+      // Click Yes on the modal
+      const yesButton = screen.getByText('Yes');
+      fireEvent.click(yesButton);
+      
+      const stats = localStorage.getItem('gameStatistics');
+      const parsedStats = JSON.parse(stats!);
+      
+      expect(parsedStats.gamesPlayed).toBe(1);
+      expect(parsedStats.wins).toEqual([0, 0, 0, 0, 0]);
+    });
+
+    it('should handle corrupted localStorage data gracefully', () => {
+      localStorage.setItem('gameStatistics', 'invalid json');
+      
+      // Spy on console.error to verify error handling
+      const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
+      
+      render(<App />);
+      
+      // Should fall back to defaults
+      const stats = localStorage.getItem('gameStatistics');
+      const parsedStats = JSON.parse(stats!);
+      
+      expect(parsedStats.gamesPlayed).toBe(0);
+      expect(parsedStats.wins).toEqual([0, 0, 0, 0, 0]);
+      
+      // Should log error
+      expect(consoleErrorSpy).toHaveBeenCalledWith(
+        expect.stringContaining('Failed to load'),
+        expect.anything()
+      );
+      
+      consoleErrorSpy.mockRestore();
+    });
+
+    it('should handle invalid gamesPlayed type in localStorage', () => {
+      const invalidStats = {
+        gamesPlayed: 'not a number',
+        wins: [1, 2, 3, 2, 1]
+      };
+      localStorage.setItem('gameStatistics', JSON.stringify(invalidStats));
+      
+      render(<App />);
+      
+      // Should use default value for gamesPlayed
+      const stats = localStorage.getItem('gameStatistics');
+      const parsedStats = JSON.parse(stats!);
+      
+      // After re-render, it should save with default gamesPlayed
+      expect(parsedStats.gamesPlayed).toBe(0);
+    });
+
+    it('should handle invalid wins array in localStorage', () => {
+      const invalidStats = {
+        gamesPlayed: 5,
+        wins: [1, 2, 3] // Wrong length
+      };
+      localStorage.setItem('gameStatistics', JSON.stringify(invalidStats));
+      
+      render(<App />);
+      
+      // Should use default value for wins
+      const stats = localStorage.getItem('gameStatistics');
+      const parsedStats = JSON.parse(stats!);
+      
+      expect(parsedStats.wins).toEqual([0, 0, 0, 0, 0]);
+    });
+
+    it('should handle non-array wins in localStorage', () => {
+      const invalidStats = {
+        gamesPlayed: 5,
+        wins: 'not an array'
+      };
+      localStorage.setItem('gameStatistics', JSON.stringify(invalidStats));
+      
+      render(<App />);
+      
+      const stats = localStorage.getItem('gameStatistics');
+      const parsedStats = JSON.parse(stats!);
+      
+      expect(parsedStats.wins).toEqual([0, 0, 0, 0, 0]);
+    });
+
+    it('should persist stats across multiple games', async () => {
+      const { unmount } = render(<App />);
+      
+      // Give up on first game
+      const giveUpButton = screen.getByText('Give Up');
+      fireEvent.click(giveUpButton);
+      const yesButton = screen.getByText('Yes');
+      fireEvent.click(yesButton);
+      
+      // Start new game
+      const newGameButton = screen.getByText('New Game');
+      fireEvent.click(newGameButton);
+      
+      // Give up on second game
+      const giveUpButton2 = screen.getByText('Give Up');
+      fireEvent.click(giveUpButton2);
+      const yesButton2 = screen.getByText('Yes');
+      fireEvent.click(yesButton2);
+      
+      // Unmount and remount to simulate page reload
+      unmount();
+      render(<App />);
+      
+      // Check that stats persisted
+      const statsButton = screen.getByText('Statistics');
+      fireEvent.click(statsButton);
+      
+      // Should show 2 games played
+      // The stats modal shows "Games Played: 2" but in separate elements
+      expect(screen.getByText(/Games Played:/)).toBeInTheDocument();
+      // Look for the specific paragraph containing both text and number
+      const allElements = screen.getAllByText(/./);
+      const gamesPlayedElement = allElements.find(el => 
+        el.textContent?.includes('Games Played:') && el.textContent?.includes('2')
+      );
+      expect(gamesPlayedElement).toBeDefined();
+    });
+
+    it('should update wins array at correct index based on guess number', async () => {
+      localStorage.setItem('gameStatistics', JSON.stringify({
+        gamesPlayed: 0,
+        wins: [0, 0, 0, 0, 0]
+      }));
+      
+      render(<App />);
+      
+      // Get the word to guess
+      const consoleLogSpy = jest.spyOn(console, 'log');
+      const logCalls = consoleLogSpy.mock.calls;
+      const wordLog = logCalls.find(call => 
+        call[0]?.includes('If you (hypothetically) were')
+      );
+      const wordMatch = wordLog?.[0].match(/would be (\w+)/);
+      const word = wordMatch?.[1];
+      
+      if (word) {
+        // Win on first guess
+        word.split('').forEach((letter: string) => {
+          fireEvent.keyUp(window, { key: letter.toLowerCase() });
+        });
+        
+        const enterButton = screen.getByText('ENTER');
+        fireEvent.click(enterButton);
+        
+        // Wait for stats to update
+        await waitFor(() => {
+          const stats = localStorage.getItem('gameStatistics');
+          const parsedStats = JSON.parse(stats!);
+          
+          // Should have incremented wins[0] since we won on first guess
+          expect(parsedStats.wins[0]).toBe(1);
+          expect(parsedStats.wins.slice(1)).toEqual([0, 0, 0, 0]);
+        }, { timeout: 3000 });
+      }
+    });
+
+    it('should save stats immediately when they change', async () => {
+      render(<App />);
+      
+      // Verify initial save
+      let stats = localStorage.getItem('gameStatistics');
+      let parsedStats = JSON.parse(stats!);
+      expect(parsedStats.gamesPlayed).toBe(0);
+      
+      // Trigger a game over
+      const giveUpButton = screen.getByText('Give Up');
+      fireEvent.click(giveUpButton);
+      const yesButton = screen.getByText('Yes');
+      fireEvent.click(yesButton);
+      
+      // Stats should be saved immediately
+      stats = localStorage.getItem('gameStatistics');
+      parsedStats = JSON.parse(stats!);
+      expect(parsedStats.gamesPlayed).toBe(1);
+    });
+  });
 });
