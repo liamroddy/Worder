@@ -15,7 +15,7 @@ interface KeyboardKeyProps {
   animationDelay?: number;
 }
 
-const KeyboardKey = forwardRef<HTMLButtonElement, KeyboardKeyProps>(({ value, onSquareClick, colours = [UIColours.DEFAULT, UIColours.DEFAULT], animationDelay = 0 }, ref = null) => {
+const KeyboardKey = forwardRef<HTMLButtonElement, KeyboardKeyProps>(({ value, onSquareClick, colours = [UIColours.DEFAULT, UIColours.DEFAULT], animationDelay = 0 }, ref) => {
   const animationDuration = (animationDelay > 0) ? AnimationTimings.REVEAL_DURATION : 0;
   
   const fromColours = colours[0];
