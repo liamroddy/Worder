@@ -1,3 +1,5 @@
+import React from 'react';
+
 export const NUMBER_OF_LETTERS_IN_WORD = 5;
 export const NUMBER_OF_GUESSES_ALLOWED = 5;
 
@@ -6,10 +8,10 @@ export const AnimationTimings = {
   REVEAL_DELAY: 200,
   GUESSING_PULSE_DURATION: 1000,
   GUESSING_PULSE_DELAY: 0,
-  TOTAL_REVEAL_DURATION: 0
-}
-// hacky to redefine like this, but can't define using REVEAL_DURATION and REVEAL_DELAY until AnimationTimings is defined
-AnimationTimings.TOTAL_REVEAL_DURATION = (NUMBER_OF_LETTERS_IN_WORD * AnimationTimings.REVEAL_DELAY) + AnimationTimings.REVEAL_DURATION;
+  get TOTAL_REVEAL_DURATION(): number {
+    return (NUMBER_OF_LETTERS_IN_WORD * this.REVEAL_DELAY) + this.REVEAL_DURATION;
+  }
+};
 
 export const UIColours = {
   DEFAULT: {
@@ -36,19 +38,36 @@ export const UIColours = {
     text: 'ivory',
     background: '#45545b'
   }
-};
+} as const;
 
-export const GameState = {
-  GUESSING: 1,
-  REVEALING: 2,
-  WON: 3,   
-  LOST: 4
-};
+export enum GameState {
+  GUESSING = 1,
+  REVEALING = 2,
+  WON = 3,   
+  LOST = 4
+}
 
 export const GameStatusText = {
-  GUESSING: <span>Enter a guess!<br></br>Use a keyboard or click the letters below</span>,
+  GUESSING: React.createElement('span', null, 
+    'Enter a guess!',
+    React.createElement('br'),
+    'Use a keyboard or click the letters below'
+  ),
   BLANK: '',
   NOT_IN_DICTIONARY: 'Word not in dictionary!',
   TOO_SHORT: 'Guess too short!',
   REVEALING: 'Hmmm......'
+};
+
+// Type definitions
+export type Guess = (string | null)[];
+export type Guesses = Guess[];
+export type GameStatistics = {
+  gamesPlayed: number;
+  wins: number[];
+};
+
+export type ModalCallbacks = {
+  openModalCallback: () => void;
+  closeModalCallback: () => void;
 };
